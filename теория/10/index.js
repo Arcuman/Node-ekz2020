@@ -1,3 +1,4 @@
+//let m1 = require('./m-1')('hello');
 let m1 = require('./m-1');
 
 m1.print('hi')

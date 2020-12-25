@@ -20,6 +20,12 @@ function Calc(a, b) {
 
 let calcWithNumberOneAndTwo = new Calc(1, 2)
 
+
+//пример передачи параметра
+// module.exports = function (message) {
+// 	console.log(message);
+// }
+
 exports.calcWithNumberOneAndTwo = calcWithNumberOneAndTwo;
 exports.Calc = Calc;
 exports.print = function print(message) {
