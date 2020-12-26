@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<button onclick="getInfo()">start</button>
+	<script>
+		async function getInfo(){
+			let res = await fetch('http://localhost:3000/info');
+			console.log(res);
+			let data = await res.text();
+			document.write(data);
+		// function getInfo2(){
+		// 	let req = new XMLHttpRequest();
+      //           req.open('GET', 'http://localhost:3000/info', true);
+      //           req.onreadystatechange = () => {
+      //               if (req.readyState === 4) {
+      //                   if (req.status === 200) {
+      //                       document.getElementById('text').innerHTML = req.responseText;
+      //                   } 
+      //                   else {
+      //                       console.log(req.statusCode);
+      //                   }
+      //               }
+      //           };
+      //     req.send();
+		// }
+	</script>
+</body>
+</html>
