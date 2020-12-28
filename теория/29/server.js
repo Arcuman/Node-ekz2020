@@ -1,5 +1,4 @@
 let http = require('http');
-let fs = require('fs');
 
 let handler = (req, res) => {
 	let data = ''

@@ -1,15 +1,17 @@
-const http = require('http')
-const fs = require('fs')
-
-const ws = fs.createWriteStream("new.txt")
-
+let http = require('http');
+let fs = require('fs');
 let options = {
-    host: 'localhost',
-    path: '/new.txt',
-    port: 3000,
-    method: 'GET'
-}
-const req = http.request(options, (res) => {
-    res.pipe(ws)
-})
-req.end()
+	host: 'localhost',
+	path: '/',
+	method: 'POST',
+	port: 3000,
+};
+let req = http.request(options, (res) => {
+	console.log('here')
+});
+
+let stream = new fs.createReadStream('./MyFile.dat');
+
+stream.pipe(req)
+
+

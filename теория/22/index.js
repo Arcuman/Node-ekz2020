@@ -19,7 +19,7 @@ var util = require('util');
 // 	}
 // }
 
-// hard way
+//hard way
 let handler = (req, res) => {
 	if (req.method === 'GET') {
 		res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
@@ -37,7 +37,7 @@ let handler = (req, res) => {
 		form.on('file', (name, file) => {
 			console.log('----file---');
 			console.log(name, file);
-			result += `<br>----${name} = ${file.originalFileName}: ${file.path}`;
+			result += `<br>----${name} = ${file.originalFilename}: ${file.path}`;
 		});
 		form.on('error', () => {
 			console.log('----err---');

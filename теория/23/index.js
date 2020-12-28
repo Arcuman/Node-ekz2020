@@ -5,7 +5,7 @@ let handler = (req, res) => {
 	if (req.url === '/' && req.method == 'GET') {
 		res.writeHead(200, {
 			'Content-Type': 'text/plain; charset=utf-8',
-			'Content-Disposition': 'form-data; filename="file.txt"'
+			'Content-Disposition': 'attachment; filename="file.txt"'
 		});
 		fs.createReadStream('./file.txt').pipe(res);
 	}

@@ -1,23 +1,13 @@
-http = require('http')
-fs = require('fs')
+let http = require('http');
+const fs = require('fs')
 
+let handler = (req, res) => {
 
-let rs = require('fs').createReadStream('./file.txt');
+	const ws = fs.createWriteStream('./MyText2.dat')
 
-http.createServer((req, res) =>{
-    if(req.method == "GET"){
-        let dat = '';
+	req.pipe(ws);
+}
 
-        req.on('data', chunk => {
-            dat += chunk;
-        });
-        req.on('end', () => {
-
-            res.writeHead(200, {
-                'Content-Type': 'text/plain; charset=utf-8',
-                'Content-Disposition': 'form-data; filename="file.txt"'
-            });
-            fs.createReadStream('./file.txt').pipe(res);
-        });
-    }
-}).listen(3000)
+http.createServer().listen(3000)
+	.on('request', handler);
+console.log("start")
