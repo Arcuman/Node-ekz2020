@@ -27,14 +27,6 @@ const handler = (request, response) => {
 		request.on('end', () => {
 			try {
 				let obj = JSON.parse(result);
-				if (obj.mutation) {
-					graphql(schema, obj.mutation, resolver, context, obj.variables ? obj.variables : {})
-						.then((result) => {
-							new IsError(result)
-								.then((json) => { Error400(response, json, json); })
-								.else((json) => { Status200(response, '', json); });
-						});
-				}
 				if (obj.query) {
 					graphql(schema, obj.query, resolver, context, obj.variables ? obj.variables : {})
 						.then((result) => {
