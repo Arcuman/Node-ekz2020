@@ -15,10 +15,15 @@ class DataBase {
 		this.connectionPool = new sql.ConnectionPool(config).connect().then(pool => {
 			console.log('Connected to MS SQl')
 			return pool;
-		}).catch(err => console.log('Connection Failed', err));
+		}).catch(err =>
+			console.log('Connection Failed', err));
 	}
-	getFaculties() {
 
+	getFaculties(faculty) {
+		return this.connectionPool.then(pool => pool.request()
+			.input('faculty', sql.NVarChar, faculty)
+			.query('Select * from FACULTY Where FACULTY = @faculty')
+		)
 	}
 }
 module.exports = DataBase;
