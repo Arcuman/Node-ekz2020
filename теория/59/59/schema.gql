@@ -8,14 +8,14 @@
 #ID:  уникальный идентификатор
 
 schema {
-    query: Query
+  query: Query
 }
 
-type Faculty {
-    faculty: String! #not null
-    faculty_name: String!
+type FACULTY {
+  FACULTY: String!
+  FACULTY_NAME: String!
 }
 
 type Query {
-    getFaculties(faculty: String): [Faculty]
+  getFaculties(FACULTY: String): [FACULTY]
 }

@@ -1,7 +1,8 @@
 const resolver = {
-    getFaculties: (args, context) => {
-        return (args.faculty) ? context.getFaculty(args, context) : context.getFaculties(args, context);
-    }
+	getFaculties: (args, context) => {
+		console.log()
+		return (args.FACULTY) ? context.getFaculty(args, context) : context.getFaculties(args, context);
+	}
 };
 
 module.exports = resolver;

@@ -5,7 +5,9 @@ function DB(cb) {
 	this.getFaculties = (args, context) => {
 		return (new mssql.Request())
 			.query('select * from FACULTY')
-			.then((r) => { return r.recordset; });
+			.then((r) => {
+				return r.recordset;
+			});
 	};
 	this.getPulpits = (args, context) => {
 		return (new mssql.Request())

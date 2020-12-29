@@ -3,46 +3,36 @@ const { graphql, buildSchema } = require('graphql');
 const schema = buildSchema(require('fs').readFileSync('./schema.gql').toString());
 const { DB } = require('./DB');
 const resolver = require('./resolver');
-const { Error400, Resp200, IsError } = require('./errors/module');
 
 const server = http.createServer();
 
-const context = DB((err, connect) => {
-    if (err) {
-        console.error('Database connection failed');
-    }
-    else {
-        console.log('Database connection successful');
-        server.listen(3000, () => {
-            console.log('Server running at http://localhost:3000/')})
-            .on('error', (err) => { console.log('Error:', err.code); })
-            .on('request', handler);
-    }
-});
+const context = DB();
 
 const handler = (request, response) => {
-    if (request.method === 'POST') {
-        let result = '';
-        request.on('data', (data) => { result += data; });
-        request.on('end', () => {
-            try {
-                let obj = JSON.parse(result);
-                console.log(obj);
-                if (obj.query) {
-                    graphql(schema, obj.query, resolver, context, obj.variables ? obj.variables : {})
-                        .then((result) => {
-                            new IsError(result)
-                                .then((json) => { Error400(response, '', json) })
-                                .else((json) => { Resp200(response, '', json) });
-                        })
-                }
-            }
-            catch (e) {
-                Error400(response, JSON.stringify({error: 'Bad Request'}));
-            }
-        })
-    }
-    else {
-        Error400(response,JSON.stringify({error: 'Invalid method'}));
-    }
+	if (request.method === 'POST') {
+		let result = '';
+		request.on('data', (data) => { result += data; });
+		request.on('end', () => {
+			let obj = JSON.parse(result);
+			if (obj.query) {
+				graphql(schema, obj.query, resolver, context, obj.variables ? obj.variables : {})
+					.then((result) => {
+						if (result.data) {
+							response.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+							response.end(JSON.stringify(result.data));
+						}
+						else {
+							response.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' });
+							response.end(result.errors[0].message);
+						}
+					})
+			}
+		})
+	}
 };
+
+server.listen(3000, () => {
+	console.log('Server running at http://localhost:3000/')
+})
+	.on('error', (err) => { console.log('Error:', err.code); })
+	.on('request', handler);

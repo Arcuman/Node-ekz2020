@@ -27,7 +27,6 @@ const handler = (request, response) => {
 		request.on('end', () => {
 			try {
 				let obj = JSON.parse(result);
-				console.log(obj.query);
 				if (obj.mutation) {
 					graphql(schema, obj.mutation, resolver, context, obj.variables ? obj.variables : {})
 						.then((result) => {
