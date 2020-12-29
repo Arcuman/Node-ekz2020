@@ -1,4 +1,5 @@
-//асинзронность + callback
+//асинхронность + callback
+const fs = require('fs');
 function a(callback) {
 	setTimeout(() => {
 		console.log('result of a');
@@ -44,5 +45,37 @@ function printArrayOfArray(arrOfarr) {
 }
 let arrOfarr = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
 printArrayOfArray(arrOfarr)
+
+const path = './MyFile.txt';
+const newpath = './MyFile1.txt';
+
+const appendFIle = (err1) => {
+	if (err1) throw err1;
+	else {
+		fs.appendFile(path, '2222', (err1) => {
+			if (err1) throw err1;
+			else {
+				fs.rename(path, newpath, (err1) => {
+					if (err1) throw err1;
+					else {
+
+					}
+				})
+			}
+		})
+	}
+}
+const writeFile = (err) => {
+	if (err) throw err;
+	else {
+		fs.writeFile(path, '1111', appendFIle);
+	}
+}
+
+fs.access(path, fs.constants.W_OK, writeFile)
+
 //либо вынести это все в отдельный модуль и сделать
-module.export = printArrayOfArray;
+module.export = writeFile;
+
+
+

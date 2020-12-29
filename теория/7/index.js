@@ -1,4 +1,5 @@
 //Promise
+
 let promise = new Promise((res, rej) => {
 	let sum = 3;
 	if (sum === 3)

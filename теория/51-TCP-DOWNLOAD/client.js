@@ -7,8 +7,7 @@ let ws = require('fs').createWriteStream('./new/new.txt');
 
 let client = new net.Socket();
 client.connect(PORT, HOST, () => {
-	~
-		console.log(`Client connected: ${client.remoteAddress}:${client.remotePort}`);
+	console.log(`Client connected: ${client.remoteAddress}:${client.remotePort}`);
 	client.pipe(ws);
 });
 
