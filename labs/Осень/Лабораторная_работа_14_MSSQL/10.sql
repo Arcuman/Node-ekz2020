@@ -1,8 +1,14 @@
+create database Nodejs;
+go
+
+use Nodejs;  
+go
+
 -- DROP TABLE FACULTY
 CREATE TABLE FACULTY
   (
    FACULTY      CHAR(10)      NOT NULL,
-   FACULTY_NAME VARCHAR2(50), 
+   FACULTY_NAME nVARCHAR(50), 
    CONSTRAINT PK_FACULTY PRIMARY KEY(FACULTY) 
   );
      
@@ -25,7 +31,7 @@ insert into FACULTY   (FACULTY,   FACULTY_NAME )
 CREATE TABLE PULPIT 
 (
  PULPIT       CHAR(10)      NOT NULL,
- PULPIT_NAME  VARCHAR2(100), 
+ PULPIT_NAME  nVARCHAR(100), 
  FACULTY      CHAR(10)      NOT NULL, 
  CONSTRAINT FK_PULPIT_FACULTY FOREIGN KEY(FACULTY)   REFERENCES FACULTY(FACULTY), 
  CONSTRAINT PK_PULPIT PRIMARY KEY(PULPIT) 
@@ -66,7 +72,7 @@ insert into PULPIT   (PULPIT,    PULPIT_NAME,                                   
 CREATE TABLE TEACHER
  ( 
   TEACHER       CHAR(10) NOT  NULL,
-  TEACHER_NAME  VARCHAR2(50), 
+  TEACHER_NAME  nVARCHAR(50), 
   PULPIT        CHAR(10) NOT NULL, 
   CONSTRAINT PK_TEACHER  PRIMARY KEY(TEACHER), 
   CONSTRAINT FK_TEACHER_PULPIT FOREIGN   KEY(PULPIT)   REFERENCES PULPIT(PULPIT)
@@ -137,7 +143,7 @@ insert into  TEACHER    (TEACHER,  TEACHER_NAME, PULPIT )
 CREATE TABLE SUBJECT
     (
      SUBJECT      CHAR(10)     NOT NULL, 
-     SUBJECT_NAME VARCHAR2(50)  NOT NULL,
+     SUBJECT_NAME nVARCHAR(50)  NOT NULL,
      PULPIT       CHAR(10)     NOT NULL,  
      CONSTRAINT PK_SUBJECT PRIMARY KEY(SUBJECT),
      CONSTRAINT FK_SUBJECT_PULPIT FOREIGN  KEY(PULPIT)  REFERENCES PULPIT(PULPIT)
@@ -205,7 +211,7 @@ insert into SUBJECT   (SUBJECT,   SUBJECT_NAME,        PULPIT )
 create table AUDITORIUM_TYPE 
 (
   AUDITORIUM_TYPE   char(10) constraint AUDITORIUM_TYPE_PK  primary key,  
-  AUDITORIUM_TYPENAME  varchar2(30) constraint AUDITORIUM_TYPENAME_NOT_NULL not null         
+  AUDITORIUM_TYPENAME  nvarchar(30) constraint AUDITORIUM_TYPENAME_NOT_NULL not null         
 );
 
 delete AUDITORIUM_TYPE;
@@ -224,8 +230,8 @@ insert into AUDITORIUM_TYPE   (AUDITORIUM_TYPE,   AUDITORIUM_TYPENAME )
 create table AUDITORIUM 
 (
  AUDITORIUM           char(10) primary key,  -- код аудитории
- AUDITORIUM_NAME      varchar2(200),          -- аудитория 
- AUDITORIUM_CAPACITY  number(4),              -- вместимость
+ AUDITORIUM_NAME      nvarchar(200),          -- аудитория 
+ AUDITORIUM_CAPACITY  int,              -- вместимость
  AUDITORIUM_TYPE      char(10) not null      -- тип аудитории
                       references AUDITORIUM_TYPE(AUDITORIUM_TYPE)  
 );
@@ -273,14 +279,11 @@ insert into  AUDITORIUM   (AUDITORIUM,   AUDITORIUM_NAME, AUDITORIUM_TYPE, AUDIT
                        values  ('320-4',   '320-4', 'ЛК',  90);
 insert into  AUDITORIUM   (AUDITORIUM,   AUDITORIUM_NAME, AUDITORIUM_TYPE, AUDITORIUM_CAPACITY )
                        values  ('429-4',   '429-4', 'ЛК',  90);
-insert into  AUDITORIUM   (AUDITORIUM,   AUDITORIUM_NAME, AUDITORIUM_TYPE, AUDITORIUM_CAPACITY )
-                        values  ('?',   '???', 'ЛК',  90);
 -----------------------------------------------------------------------------------------------------------------------
 
-
-
-
-
-
-
- 
+select * from AUDITORIUM;
+select * from AUDITORIUM_TYPE;
+select * from FACULTY;
+select * from PULPIT;
+select * from SUBJECT;
+select * from TEACHER;
