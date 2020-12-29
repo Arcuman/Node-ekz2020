@@ -1,0 +1,12 @@
+schema {
+  query: Query
+}
+
+type Faculty {
+  faculty: String!
+  faculty_name: String!
+}
+
+type Query {
+  getFaculties(Faculty: Faculty!): [Faculty]
+}
